@@ -99,36 +99,23 @@ void ath_set_tuning_caps(void)
 int
 wasp_mem_config(void)
 {
-#ifdef CONFIG_AP123
+
 	extern void ath_ddr_tap_cal(void);
 #endif
 	unsigned int type, reg32;
 
 	type = wasp_ddr_initial_config(CFG_DDR_REFRESH_VAL);
 
-#ifdef CONFIG_AP123
-	ath_ddr_tap_cal();
-
-#ifndef COMPRESSED_UBOOT
-	printf("Tap value selected = 0x%x [0x%x - 0x%x]\n",
-		ar7240_reg_rd(AR7240_DDR_TAP_CONTROL0),
-		ar7240_reg_rd(0xbd007f10), ar7240_reg_rd(0xbd007f14));
-#endif
-#endif
-
 	/* Take WMAC out of reset */
 	reg32 = ar7240_reg_rd(AR7240_RESET);
 	reg32 = reg32 &  ~AR7240_RESET_WMAC;
 	ar7240_reg_wr_nf(AR7240_RESET, reg32);
 
-#if !defined(CONFIG_ATH_NAND_BR)
 	/* Switching regulator settings */
 	ar7240_reg_wr_nf(0x18116c40, 0x633c8176); /* AR_PHY_PMU1 */
 	ar7240_reg_wr_nf(0x18116c44, 0x10380000); /* AR_PHY_PMU2 */
 
 	wasp_usb_initial_config();
-
-#endif /* !defined(CONFIG_ATH_NAND_BR) */
 
 	wasp_gpio_config();
 
