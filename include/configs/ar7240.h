@@ -103,9 +103,7 @@
 #define CFG_PLL_400_200_200		0x15
 #define CFG_PLL_500_400_200		0x16
 #define CFG_PLL_600_400_200		0x17
-#define CFG_PLL_600_500_250		0x18
 #define CFG_PLL_600_400_300		0x19
-#define CFG_PLL_500_500_250		0x1a
 #define CFG_PLL_600_350_175		0x1b
 #define CFG_PLL_600_300_150		0x1c
 #define CFG_PLL_600_550_1_1G_275	0x1d
